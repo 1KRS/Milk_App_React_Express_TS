@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import { db } from './data/db';
-import { Data } from './interfaces';
+import { Data, Result } from './interfaces';
 import './App.css';
-import Product from './components/Product';
+import List from './components/List';
+import ProductNumber from './components/ProductNumber';
+import { Row } from 'react-bootstrap';
+
 // import { Container } from 'react-bootstrap';
 
 function App() {
@@ -11,15 +14,48 @@ function App() {
     count: 0,
     results: []
   })
+  const [showingMilkType, setShowingMilkType] = useState<string>('All')
+  const [showingNumber, setShowingNumber] = useState<number>(0)
+  const [showingProducts, setShowingProducts] = useState<Result[]>([{
+    name: '',
+    type: '',
+    storage: 0,
+    id: ''
+  }])
 
   useEffect(() => {
     const dt = db;
+    const productNumber = dt.count
+    const productType = dt.results
     setData(dt);
+    setShowingNumber(productNumber);
+    setShowingProducts(productType);
   }, [])
-  
-  const productNumber = data.count
-  const products = data.results
-  console.log('data', products);
+
+  const typesOfMilk = [
+    'Whole milk', 
+    'Oat milk', 
+    'Pea milk', 
+    'Almond milk', 
+    'Rice milk', 
+    'Coconut milk', 
+    'Soy milk', 
+    'Walnut milk', 
+    'Macadamia milk', 
+    'Hemp milk', 
+    'Cashew milk'
+  ]
+
+  const filterMilkType = async (e: any) => {
+    const showMilkType = e.target.value;
+    await setShowingMilkType (showMilkType)
+    const filteredProducts = data.results.filter(p => p.type === showMilkType)
+    await setShowingProducts(filteredProducts);
+    const productNumber = data.results.filter(p => p.type === showMilkType).length;
+    await setShowingNumber(productNumber);
+  }
+
+  console.log('showingNumber', showingNumber);
 
   return (
     // <Container>
@@ -32,17 +68,24 @@ function App() {
         <main className='main'>
           <section className='main-search-filter'>
             <h4>Search</h4>
-            <h4>Filter</h4>
+            <section className='main-filter'>
+              <select className="select milk--filter" name="milk filter" onChange={(e) => filterMilkType(e)}>
+                <option value="ALL">All</option>
+                {typesOfMilk.map((milk, i) => (
+                  <option value={milk} key={i}> {milk} </option>
+                ))}
+              </select>
+            </section>
           </section>
-          <section>
-            <h4>Number of Products: {productNumber}</h4>
+          <ProductNumber showingNumber={showingNumber}/>
+          <section className='list'>
+            <Row md={2} xs={1} lg={3} className='g-3'>
+              <List 
+                showingMilkType={showingMilkType}
+                showingProducts={showingProducts}
+              />
+            </Row>
           </section>
-
-          <div className='accordion'>
-            {products.map((product, i) => (
-              <Product product={product} key={i}/>
-            ))}
-          </div>
         </main>
       </div>
     </>

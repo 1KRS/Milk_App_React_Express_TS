@@ -1,18 +1,15 @@
-// import { Routes, Route } from 'react-router-dom';
-// import { Home } from '../pages/Home';
+import { Routes, Route } from 'react-router-dom';
+import { Home } from '../pages/Home';
 import { Result } from '../interfaces';
 import milkImg from '../imgs/milk.png'
-import { Col } from 'react-bootstrap';
-
 
 interface IProductProps {
   product: Result
-  showingMilkType: string
 }
 
 const Product = ({product}: IProductProps) => {
   return (
-    <Col>
+    <>
       {/* <Routes>
         <Route path='/' element={<Home />} />
       </Routes> */}
@@ -25,11 +22,11 @@ const Product = ({product}: IProductProps) => {
         </section>
         <section className="product-info">
         <div>{product.type}</div>
-        <div>{(product.storage === 1) ? `${product.storage} liter` : `${product.storage} liters`}</div>
+        <div>{product.storage}</div>
           
         </section>
       </section>
-    </Col>
+    </>
   )
 }
 
