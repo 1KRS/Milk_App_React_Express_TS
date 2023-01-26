@@ -1,29 +1,25 @@
-import { Routes, Route, useParams } from 'react-router-dom';
-
-// import { Home } from '../components/List';
 import { Result } from '../interfaces';
+import { useParams } from "react-router-dom";
 import milkImg from '../imgs/milk.png'
+import { db } from '../data/db';
 
-interface IProductProps {
-  product: Result
-}
+const Product = () => {
+  const { id } = useParams();
 
-const Product = ({product}: IProductProps) => {
+  const specificProduct = db.results.filter(p => p.id === id)[0];
+  console.log('SP', specificProduct)
   return (
     <>
-      <section className="product-container">
         <section className="img-container">
           <img src={milkImg} alt='milk cart' className='milk-cart-img' />
         </section>
         <section className="product-name">
-          {product.name}
+          {specificProduct.name}
         </section>
         <section className="product-info">
-        <div>{product.type}</div>
-        <div>{product.storage}</div>
-          
+          <div>{specificProduct.type}</div>
+          <div>{(specificProduct.storage === 1) ? `${specificProduct.storage} liter` : `${specificProduct.storage} liters`}</div>
         </section>
-      </section>
     </>
   )
 }

@@ -1,4 +1,3 @@
-// import { useState, useEffect } from 'react';
 import { Result } from '../interfaces';
 import { Col } from 'react-bootstrap';
 import Product from './Product';
@@ -11,11 +10,10 @@ interface IListProps {
 
 const List = ({showingMilkType, showingProducts}: IListProps) => {
 
-  console.log('showing Milk Type', showingMilkType);
-  console.log('showing Products', showingProducts);
+  console.log('Showing Milk Type', showingMilkType);
+  console.log('Showing Products', showingProducts);
 
   const showingMilkT = showingMilkType
-
 
   return (
     <>
