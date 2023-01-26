@@ -2,6 +2,8 @@ import { Result } from '../interfaces';
 import { useParams } from "react-router-dom";
 import milkImg from '../imgs/milk.png'
 import { db } from '../data/db';
+import { Link } from "react-router-dom";
+
 
 const Product = () => {
   const { id } = useParams();
@@ -10,6 +12,7 @@ const Product = () => {
   console.log('SP', specificProduct)
   return (
     <>
+      <Link to='/' >Back</Link>
         <section className="img-container">
           <img src={milkImg} alt='milk cart' className='milk-cart-img' />
         </section>
