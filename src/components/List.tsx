@@ -15,14 +15,15 @@ const List = ({showingMilkType, showingProducts}: IListProps) => {
   console.log('showing Products', showingProducts);
 
   const showingMilkT = showingMilkType
+
+
   return (
     <>
       {showingProducts.map((product, i) => (
-        <Col>
+        <Col key={i}>
           <Product
             product={product}
             showingMilkType={showingMilkT}
-            key={i}
           />
         </Col>
       ))}
