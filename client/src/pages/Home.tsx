@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Data, Result } from '../interfaces';
 import List from '../components/List';
 import ProductNumber from '../components/ProductNumber';
-import { Row } from 'react-bootstrap';
+import { Container, InputGroup, Row, Form } from 'react-bootstrap';
 import axios from 'axios';
 
 function App() {
@@ -19,33 +19,10 @@ function App() {
     storage: 0,
     id: ''
   }])
-
-  // axios.get('/milk-data')
-  //   .then(res => {
-  //     console.log('res', res);
-  //   })
-  //   .catch(() => {console.log('Error')})
-
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     fetch('/mild-data')
-  //     .then(data => data.json())
-  //     .then(res => {
-  //       setData(res)
-  //       console.log('res', res)
-  //       const productNumber = res.count
-  //       const productType = res.results
-  //       setShowingNumber(productNumber);
-  //       setShowingProducts(productType);
-  //       })
-  //     .catch(() => {console.log('Error')})
-  //   }
-
-  //   getData()
-  // }, []);
+  const [search, setSearch] = useState<string>('');
+  console.log('search', search)
 
   useEffect(() => {
-    
       axios.get('/database.json')
       .then(res => {
         const dt = res.data;
@@ -54,10 +31,8 @@ function App() {
         setData(dt);
         setShowingNumber(productNumber);
         setShowingProducts(productType);
-        console.log('dt', dt);
       })
       .catch(() => {console.log('Error')})
-  
   }, [])
   
 
@@ -89,25 +64,26 @@ function App() {
   const filterMilkType = async (e: any) => {
     const showMilkType = e.target.value;
     await setShowingMilkType (showMilkType)
-    const filteredProducts = data.results.filter(p => p.type === showMilkType)
-    await setShowingProducts(filteredProducts);
-    const productNumber = data.results.filter(p => p.type === showMilkType).length;
-    await setShowingNumber(productNumber);
+    showMilkType !== 'All' ? setShowingProducts(data.results.filter(p => p.type === showMilkType)) : setShowingProducts(data.results)
+    showMilkType !== 'All' ? setShowingNumber(data.results.filter(p => p.type === showMilkType).length) : setShowingNumber(data.count)
   }
 
   return (
-    <>
-      <div className="App">
+    <div className="App">
         <header className='app-header'>
           <h1 className='app-title'>The Milk Store</h1>
           <h4>Milk you want? Got it we have.</h4>
         </header>
         <main className='main'>
           <section className='main-search-filter'>
-            <h4>Search</h4>
+            <Form>
+              <InputGroup>
+                <Form.Control onChange={e => setSearch(e.target.value)} placeholder='Αναζήτηση'></Form.Control>
+              </InputGroup>
+            </Form>
             <section className='main-filter'>
               <select className="select milk--filter" name="milk filter" onChange={(e) => filterMilkType(e)}>
-                <option value="ALL">All</option>
+                <option value="All">All</option>
                 {typesOfMilk.map((milk, i) => (
                   <option value={milk} key={i}> {milk} </option>
                 ))}
@@ -115,17 +91,19 @@ function App() {
             </section>
           </section>
           <ProductNumber showingNumber={showingNumber}/>
+
           <section className='list'>
             <Row md={2} xs={1} lg={3} className='g-3'>
               <List 
                 showingMilkType={showingMilkType}
                 showingProducts={showingProducts}
+                search={search}
               />
             </Row>
           </section>
+
         </main>
       </div>
-    </>
   );
 }
 
