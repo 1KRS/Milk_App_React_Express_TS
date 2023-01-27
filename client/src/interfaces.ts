@@ -8,4 +8,4 @@ export interface Result {
 export interface Data {
   count: number,
   results: Result[]
-}
+} 

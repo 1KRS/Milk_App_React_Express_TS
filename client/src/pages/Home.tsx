@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-// import { db } from '../data/db';
 import { Data, Result } from '../interfaces';
 import List from '../components/List';
 import ProductNumber from '../components/ProductNumber';
-import { Container, InputGroup, Row, Form } from 'react-bootstrap';
+import { InputGroup, Row, Form } from 'react-bootstrap';
 import axios from 'axios';
 
 function App() {
@@ -34,18 +33,6 @@ function App() {
       })
       .catch(() => {console.log('Error')})
   }, [])
-  
-
-  // console.log('db', db.count);
-  
-  // useEffect(() => {
-  //   const dt = db;
-  //   const productNumber = dt.count
-  //   const productType = dt.results
-  //   setData(dt);
-  //   setShowingNumber(productNumber);
-  //   setShowingProducts(productType);
-  // }, [])
 
   const typesOfMilk = [
     'Whole milk', 
@@ -93,7 +80,7 @@ function App() {
           <ProductNumber showingNumber={showingNumber}/>
 
           <section className='list'>
-            <Row md={2} xs={1} lg={3} className='g-3'>
+            <Row md={2} xs={1} lg={3} className='row g-3'>
               <List 
                 showingMilkType={showingMilkType}
                 showingProducts={showingProducts}

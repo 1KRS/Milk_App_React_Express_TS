@@ -57,7 +57,7 @@ table {
 
 .app-title {
   color: pink;
-	margin: 20px 0 0 0;
+	margin: 10px 0 0 0;
 }
 
 .main {
@@ -68,6 +68,7 @@ table {
   background-color: pink;
   width: 100%;
   height: auto;
+	padding: 0 0 25px;
 }
 
 .main-search-filter {
@@ -75,21 +76,49 @@ table {
 	justify-content: space-between;
   align-items: center;
 	width: 100%;
+	padding: 25px 25px 10px;
 }
 
 .list {
 	max-width: 1100px;
 }
 
+.row {
+	padding: 0 25px;
+}
+
 .product-container {
-	height: 250px;
+	height: 260px;
 	background-color: aqua;
+}
+
+.link {
+	background-color: aqua;
+}
+
+.product-number {
+	padding: 0 0 25px 0;
+}
+
+.product-number-title {
+	border: 3px solid aqua;
+	background-color: aquamarine;
+	border-radius: 15px;
 	padding: 15px;
+	font-weight: bold;
+	color: black;
+}
+
+.milk-filter {
+	height: 30px;
 }
 
 .img-container {
 	display: flex;
 	justify-content: center;
+	background-color: aquamarine;
+	padding: 15px 0;
+	border-bottom: 1px solid black;
 }
 
 .milk-cart-img {
@@ -101,6 +130,8 @@ table {
 	display: flex;
 	justify-content: center;
 	margin: 10px 0;
+	font-size: 18px;
+	font-weight: bold;
 }
 
 .product-info {
@@ -108,4 +139,6 @@ table {
 	justify-content: space-between;
   align-items: center;
 	width: 100%;
+	padding: 0 15px 0 15px;
+	font-size: bold;
 }
